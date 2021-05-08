@@ -1,0 +1,41 @@
+name: super-termometer
+version: git
+summary: Temperature controled relay for air conditioner.
+description: |
+  With the help of a DHT22 and a 5 Volts relay we can save energy in air
+  conditioner that don't have an auto shut down function.
+base: core18
+
+grade: devel
+confinement: devmode
+
+parts:
+  super-termometer:
+    source: .
+    plugin: python
+    python-version: python3
+    requirements: ['requirements.txt']
+
+  super-termometer-data:
+    plugin: dump
+    source: .
+
+apps:
+  dht-read:
+    command: dht-read
+    environment:
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+  super-termometer:
+    command: super-termometer
+    environment:
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+  super-termometer-daemon:
+    daemon: simple
+    command: super-termometer
+    environment:
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
