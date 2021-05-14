@@ -15,7 +15,7 @@ def set_up_gpio():
     GPIO.setup(HUMIDIFIER_PIN, GPIO.OUT)
 
 
-def set_relay_state(temperature):
+def set_grow_room_state(temperature, humidity):
     if temperature < 26.5:
         print("Turning down AC")
         GPIO.output(AC_PIN, GPIO.HIGH)
@@ -25,8 +25,8 @@ def set_relay_state(temperature):
         print("Turning on AC")
         GPIO.output(AC_PIN, GPIO.LOW)
 
+    time.sleep(0.5)
 
-def set_humidifier_state(humidity):
     if humidity < 60.0:
         print("Turning on Humidifier")
         GPIO.output(HUMIDIFIER_PIN, GPIO.LOW)
@@ -46,9 +46,7 @@ def run_ac_unit():
 
                 if humidity is not None and temperature is not None:
                     log(temperature, humidity)
-                    set_relay_state(temperature)
-                    set_humidifier_state(humidity)
-
+                    set_grow_room_state(temperature, humidity)
                 else:
                     print("Failed to retrieve data from humidity sensor.")
 
