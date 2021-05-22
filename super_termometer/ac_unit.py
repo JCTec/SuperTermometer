@@ -16,12 +16,12 @@ def set_up_gpio():
 
 
 def set_grow_room_state(temperature, humidity):
-    if temperature < 26.5:
+    if temperature < 25.5:
         print("Turning down AC")
         GPIO.output(AC_PIN, GPIO.HIGH)
-    elif 26.5 <= temperature < 27.5:
+    elif 25.5 <= temperature < 26.5:
         print("Ideal temperature")
-    elif temperature > 27.5:
+    elif temperature > 26.5:
         print("Turning on AC")
         GPIO.output(AC_PIN, GPIO.LOW)
 
