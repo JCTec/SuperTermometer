@@ -8,6 +8,9 @@ DHT_SENSOR = adafruit_dht.DHT22(board.D4)
 AC_PIN = 24
 HUMIDIFIER_PIN = 23
 
+MIN_TEMP = 22.0
+MAX_TEMP = 25.5
+
 
 def set_up_gpio():
     GPIO.setmode(GPIO.BCM)
@@ -16,12 +19,12 @@ def set_up_gpio():
 
 
 def set_grow_room_state(temperature, humidity):
-    if temperature < 24.5:
+    if temperature < MIN_TEMP:
         print("Turning down AC")
         GPIO.output(AC_PIN, GPIO.HIGH)
-    elif 24.5 <= temperature < 25.5:
+    elif MIN_TEMP <= temperature < MAX_TEMP:
         print("Ideal temperature")
-    elif temperature > 25.5:
+    elif temperature > MAX_TEMP:
         print("Turning on AC")
         GPIO.output(AC_PIN, GPIO.LOW)
 
